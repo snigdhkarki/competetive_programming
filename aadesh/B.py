@@ -32,11 +32,11 @@ for eachCase in range(testCases):
             count += (n * b[index])
             k -= (n * b[index])
             runs += b[index]
-            index += 1
-            
             n -= mem[b[index]]
             count += mem[b[index]]
+            index += 1
 
     
-
     print(count)
+
+    # print("\n", eachCase, ") Output -> ", count)
