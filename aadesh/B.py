@@ -25,15 +25,15 @@ for eachCase in range(testCases):
     index = 0
 
     while k > 0:
-        if (n >= k or (n * b[index]) >= k):
+        if (n >= k or (n * (b[index] - runs )) >= k):
             count += k
             k = 0
         else:
-            count += (n * b[index])
-            k -= (n * b[index])
-            runs += b[index]
+            count += (n * (b[index] - runs ))
+            k -= (n * (b[index] - runs ))
             n -= mem[b[index]]
             count += mem[b[index]]
+            runs += (b[index] - runs)
             index += 1
 
     
