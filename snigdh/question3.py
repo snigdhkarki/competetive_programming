@@ -6,13 +6,13 @@ from functools import cmp_to_key
 
 class Pair:
     def __init__(self, left, right):
-        self.l = left  # Private attribute for the first integer
-        self.r = right  # Private attribute for the second integer    
+        self.l = left  
+        self.r = right    
     def l(self):
         return self.l    
     def r(self):
         return self.r
-# Example comparison function
+
 def comp(a, b):
     sum = 0
     if (a.l>b.l):
@@ -37,17 +37,13 @@ def comp(a, b):
         return -1
     elif sum1 == sum:
         return 0
-
-
     else:
-        return 1
+        return 1    
+   
 
-    
-    #return a < b  # This example assumes a and b are numerical values
 
-# Example usage
 if __name__ == "__main__":
-    # Array of objects (numbers in this case)
+
     sorted_arrs = []
     b = int(input())
     for _ in range(b):
@@ -58,7 +54,7 @@ if __name__ == "__main__":
             d.append(Pair(a,b))
         sorted_arr = sorted(d, key=cmp_to_key(comp))
         sorted_arrs.append(sorted_arr)
-        # Sorting using merge sort with the comparison function
+
     for sorted_arr in sorted_arrs: 
         for pair in sorted_arr:
             print(pair.l, end = ' ')
