@@ -35,6 +35,14 @@ public:
 		else if (v2 < other.v1) {
 			score2++;
 		}
+		if (score1 == score2) {
+			if ((v1 > other.v1 && v1 > other.v2) || (v2 > other.v1 && v2 > other.v2)) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
 		return score1 < score2;
 	}
 };
