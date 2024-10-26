@@ -8,7 +8,6 @@ for eachCase in range(testCases):
     
     b  = list(set(a))
 
-
     mem = {}
 
     for slot in a:
