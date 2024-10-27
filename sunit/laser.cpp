@@ -3,13 +3,13 @@
 
 using namespace std;
 
-int l;
+long long l;
 
 class coordinates {
 public:
-	int x, y;
+	long long x, y;
 	coordinates() {}
-	coordinates(int x, int y) : x(x), y(y) {}
+	coordinates(long long x, long long y) : x(x), y(y) {}
 
 	bool operator<(const coordinates& other) const {
 		if (x == other.x) {
@@ -31,13 +31,13 @@ bool intersect(coordinates c1, coordinates c2) {
 }
 
 int main() {
-	int n, m;
+	long long n, m;
 	cin >> l >> n >> m;
 	coordinates a[n];
 	coordinates b[m];
-	for (int i = 0; i < n; i++) {
+	for (long long i = 0; i < n; i++) {
 		char c;
-		int coord;
+		long long coord;
 		cin >> c >> coord;
 		if (c == 'U') {
 			a[i] = coordinates(coord, l);
@@ -45,9 +45,9 @@ int main() {
 			a[i] = coordinates(l, coord);
 		}
 	}
-	for (int i = 0; i < m; i++) {
+	for (long long i = 0; i < m; i++) {
 		char c;
-		int coord;
+		long long coord;
 		cin >> c >> coord;
 		if (c == 'U') {
 			b[i] = coordinates(coord, l);
@@ -57,15 +57,15 @@ int main() {
 	}
 	sort(a, a + n);
 	sort(b, b + m);
-	// for (int i = 0; i < n; i++) {
+	// for (long long i = 0; i < n; i++) {
 	// 	cout << a[i].x << " " << a[i].y << endl;
 	// }
-	// for (int i = 0; i < m; i++) {
+	// for (long long i = 0; i < m; i++) {
 	// 	cout << b[i].x << " " << b[i].y << endl;
 	// }
 
-	int searchstart = 0;
-	for (int i = 0; i < n; i++) {
+	long long searchstart = 0;
+	for (long long i = 0; i < n; i++) {
 		if (a[i].x == l) {
 			searchstart = i + 1;
 		}
@@ -74,15 +74,18 @@ int main() {
 		}
 	}
 
-	int intersected = 0;
-	int count = n + m * searchstart + 1;
-	cout << "count start:" << count << endl;
-	for (int j = 0; j < m; j++) {
+	long long intersected = 0;
+	long long count = n + m * searchstart + 1;
+	// cout << "count start:" << count << endl;
+	for (long long j = 0; j < m; j++) {
 		count += intersected;
-		for (int i = searchstart; i < n; i++) {
+		for (long long i = searchstart; i < n; i++) {
 			if (intersect(a[i], b[j])) {
 				intersected++;
 				count++;
+				if (i == n - 1){
+					searchstart = i + 1;
+				}
 			}
 			else {
 				searchstart = i;
@@ -90,6 +93,7 @@ int main() {
 			}
 		}
 		count++;
+		// cout << long intersected<<searchstart<<"count:" << count << endl;
 	}
 	cout << count << endl;
 	return 0;

@@ -1,101 +1,62 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-int n;
-int perm = 0;
-vector<int> a;
-vector<int> b;
-int al, bl;
+int variations = 0;
+int N;
+int Al, Bl;
+unordered_map<int, int> A, B;
 
-void solve(int r1i, int r2i, int k, int ai, int bi) {
-	// cout << r1i << r2i << k << ai << bi << endl;
-
-	if (k == 2 * n){
-		if (ai < al && a[ai] == k)
-			return;
-		perm++;
-		return;
-	}
-	if (r1i == r2i) {
-		if (bi < bl && b[bi] == k)
-			return;
-		if (ai < al && a[ai] == k) {
-			solve(r1i + 1, r2i, k + 1, ai++, bi);
+void fillTable(int a, int b, int n) {
+	cout << a << " " << b << " "<< n << endl;
+	if (a < N) {
+		if (A.find(n) != A.end()) {
+			// if (B.find(n) == B.end())
+			fillTable(a+1, b, n+1);
+		}
+		else if (B.find(n) != B.end()) {
+			if (a > b)
+				fillTable(a, b+1, n+1);
 		}
 		else {
-			solve(r1i + 1, r2i, k + 1, ai, bi);
+			if (a > b)
+				fillTable(a, b+1, n+1);
+			fillTable(a+1, b, n+1);
 		}
-		return;
 	}
-
-	if (r1i < n) {
-		// cout << "c1" << k << a[ai] << b[bi] <<endl;
-		if (bi < bl && b[bi] == k) {}
-		else {
-			if (ai < al && a[ai] == k) {
-				solve(r1i + 1, r2i, k + 1, ai + 1, bi);
+	else {
+		if (A.find(n) == A.end()) {
+			if (n!=2*N){
+				if (b < N)
+					fillTable(a, b+1, n+1);
 			}
 			else {
-				solve(r1i + 1, r2i, k + 1, ai, bi);
+				variations = (variations+1)%998244353;
 			}
 		}
 	}
-
-	if (r2i < n) {
-		// cout << "c2" << k << a[ai] << b[bi] <<endl;
-		if (ai < al && a[ai] == k) {}
-		else {
-			if (bi < bl && b[bi] == k) {
-				solve(r1i, r2i + 1, k + 1, ai, bi + 1);
-			}
-			else {
-				solve(r1i, r2i + 1, k + 1, ai, bi);
-			}
-		}
-	}
+	return;
 }
 
 int main() {
-	cin >> n;
-
-	cin >> al;
-	if (al > n) {
-		cout << 0;
-		return 0;
-	}
-
-	for (int i = 0; i < al; i++) {
+	cin >> N;
+	cin >> Al;
+	for (int i = 0; i < Al; i++) {
 		int x;
 		cin >> x;
-		a.push_back(x);
+		A[x] = 1;
 	}
-
-	cin >> bl;
-	if (bl > n) {
-		cout << 0;
-		return 0;
-	}
-
-	for (int i = 0; i < bl; i++) {
+	cin >> Bl;
+	for (int i = 0; i < Bl; i++) {
 		int x;
 		cin >> x;
-		b.push_back(x);
+		B[x] = 1;
 	}
 
-	sort(a.begin(), a.end());
-	sort(b.begin(), b.end());
+	fillTable(0, 0, 1);
+	cout << variations << endl;
 
-	if (b[0] == 1) {
-		cout << 0;
-		return 0;
-	}
-
-	int r1i = 1, r2i = 0;
-	solve(r1i, r2i, 2, 0, 0);
-
-	cout << perm << endl;
-
+	return 0;
 }

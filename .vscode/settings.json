@@ -1,6 +1,13 @@
 {
 	"files.associations": {
 		"iostream": "cpp",
-		"ostream": "cpp"
+		"ostream": "cpp",
+		"string": "cpp",
+		"*.tcc": "cpp",
+		"limits": "cpp",
+		"array": "cpp",
+		"string_view": "cpp",
+		"initializer_list": "cpp",
+		"span": "cpp"
 	}
 }
